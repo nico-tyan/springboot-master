@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.IntField;
+import org.apache.lucene.document.IntPoint;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
@@ -52,7 +52,10 @@ public class WriterDemo extends TestData {
 				// doc.add(new StringField("id", IDS[i],Field.Store.YES));
 				// id用来排序
 				doc.add(new StringField("id", IDS[i], Field.Store.YES));
-				doc.add(new IntField("id", Integer.parseInt(IDS[i]), Field.Store.YES));
+				//5.5版本
+				//doc.add(new IntField("id", IDS[i],Field.Store.YES));
+				//7.1后版本
+				doc.add(new IntPoint("id", Integer.parseInt(IDS[i])));
 				// name不分词
 				doc.add(new StringField("name", NAMES[i], Field.Store.YES));
 				// title不分词

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.IntPoint;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
@@ -14,7 +15,6 @@ import org.apache.lucene.queryparser.classic.QueryParser.Operator;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.NumericRangeQuery;
 import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -115,7 +115,10 @@ public class SeacherQueryType extends TestData {
 	@Test
 	public void testNumericRangeQuery()throws Exception{
 		IndexSearcher is = getIndexSearcher(INDEX_PATH);
-		NumericRangeQuery<Integer> query=NumericRangeQuery.newIntRange("id", 1, 2, true, true);
+		//5.5版本
+		//NumericRangeQuery<Integer> query1=NumericRangeQuery.newIntRange("id", 1, 2, true, true);
+		//7.1后版本
+		Query query=IntPoint.newRangeQuery("id", 1, 3);
 		TopDocs hits=is.search(query, 10);
 		for(ScoreDoc scoreDoc:hits.scoreDocs){
 			Document doc=is.doc(scoreDoc.doc);
@@ -149,7 +152,10 @@ public class SeacherQueryType extends TestData {
 	@Test
 	public void testBooleanQuery()throws Exception{
 		IndexSearcher is = getIndexSearcher(INDEX_PATH);
-		NumericRangeQuery<Integer> query1=NumericRangeQuery.newIntRange("id", 1, 2, true, true);
+		//5.5版本
+		//NumericRangeQuery<Integer> query1=NumericRangeQuery.newIntRange("id", 1, 2, true, true);
+		//7.1后版本
+		Query query1=IntPoint.newRangeQuery("id", 1, 2);
 		PrefixQuery query2=new PrefixQuery(new Term("city","a"));
 		BooleanQuery.Builder booleanQuery=new BooleanQuery.Builder();
 		booleanQuery.add(query1,BooleanClause.Occur.MUST);
