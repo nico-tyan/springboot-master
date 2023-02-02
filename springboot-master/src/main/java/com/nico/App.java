@@ -25,7 +25,7 @@ public class App {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(App.class);
-       // app.setBannerMode(Banner.Mode.LOG);
+       // app.setBannerMode(Banner.Mode.LOG);4564565465464564
         app.run(args);
         logger.info("Application is success start!");
         System.err.println("集成了jpa_hibernate");
